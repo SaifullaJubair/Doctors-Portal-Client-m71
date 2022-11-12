@@ -4,7 +4,15 @@ import { FaUserAlt } from "react-icons/fa";
 import { AuthContext } from '../../Context/AuthProvider';
 
 const Navbar = () => {
+
    const { user } = useContext(AuthContext)
+   const menuItems =
+      <React.Fragment>
+         <li><Link to='/about'>About</Link>
+         </li>
+         <li><Link to='/contactUs'>Contact Us</Link>
+         </li>
+      </React.Fragment>
    return (
       <div>
          <div className="navbar bg-base-100 py-5">
@@ -17,10 +25,8 @@ const Navbar = () => {
 
 
                      {/* <li><Link to='/review'>Review</Link></li> */}
-                     <li><Link to='/about'>About</Link>
-                     </li>
-                     <li><Link to='/contactUs'>Contact Us</Link>
-                     </li>
+                     {menuItems}
+
                      {
                         user?.uid ?
                            <>
