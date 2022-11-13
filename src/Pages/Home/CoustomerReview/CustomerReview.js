@@ -21,10 +21,10 @@ const CustomerReview = ({ review }) => {
                         </svg>
                      </p>
                   </div>
-                  <div className="flex flex-col items-center justify-center p-8 rounded-b-lg dark:bg-violet-400 dark:text-gray-900">
-                     <img src={img} alt="" className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-500 dark:bg-gray-700" />
-                     <p className="text-xl font-semibold leading-tight">Distinctio Animi</p>
-                     <p className="text-sm uppercase">{place}</p>
+                  <div className="flex flex-col items-center justify-center p-8 rounded-b-lg bg-gradient-to-r from-primary to-secondary ">
+                     <img src={img} alt="" className="w-16 h-16 mb-2 border-violet-600 -mt-16 bg-center bg-cover rounded-full border-2 dark:bg-gray-500 dark:bg-gray-700" />
+                     <p className="text-xl font-semibold leading-tight ">Distinctio Animi</p>
+                     <p className="text-xs uppercase italic  dark:text-gray-900">{place}</p>
                   </div>
                </div>
             </div>
