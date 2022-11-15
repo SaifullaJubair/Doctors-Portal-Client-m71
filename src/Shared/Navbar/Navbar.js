@@ -5,7 +5,12 @@ import { AuthContext } from '../../Context/AuthProvider';
 
 const Navbar = () => {
 
-   const { user } = useContext(AuthContext)
+   const { user, logOut } = useContext(AuthContext)
+   const handleLogOut = () => {
+      logOut()
+         .then(() => { })
+         .catch(error => console.log(error))
+   }
    const menuItems =
       <React.Fragment>
          <li><Link to='/about'>About</Link>
@@ -14,6 +19,7 @@ const Navbar = () => {
          </li>
          <li><Link to='/appointment' className=''>Appointment</Link></li>
       </React.Fragment>
+
    return (
       <div>
          <div className="navbar bg-base-100 py-5">
@@ -31,7 +37,7 @@ const Navbar = () => {
                            <>
                               <li><Link to='/appointment'>Appointment</Link></li>
                               <li><Link to='review'>Review</Link></li>
-                              <li><button className='nav' > Logout</button></li>
+                              <li><button className='nav' onClick={handleLogOut} > Logout</button></li>
 
                            </>
                            :
@@ -62,7 +68,8 @@ const Navbar = () => {
                         user?.uid ?
                            <>
                               <li><Link to='my_review' className='lg:text-lg  text-xs font-semibold nav'>Review</Link></li>
-                              <button className='mx-2 lg:text-lg text-xs font-semibold nav'> Logout</button>
+                              <li><Link to='dashboard'> DashBoard</Link></li>
+                              <button className='mx-2 lg:text-lg text-xs font-semibold nav' onClick={handleLogOut}> Logout</button>
 
                            </>
                            :
@@ -81,7 +88,7 @@ const Navbar = () => {
                            <img title={user?.displayName} className='h-12 rounded-full ' src={user?.photoURL} alt="User_Photo" />
                         </>
                         :
-                        <span ><FaUserAlt></FaUserAlt> </span>
+                        <span  ><FaUserAlt title={user?.displayName} ></FaUserAlt> </span>
                   }
 
                </Link>

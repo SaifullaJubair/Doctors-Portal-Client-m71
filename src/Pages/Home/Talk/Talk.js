@@ -12,7 +12,7 @@ const Talk = () => {
             </div>
             <img src="https://www.mambaui.com/assets/svg/doodle.svg" alt="" className=" h-52 md:h-64 mt-6" />
          </div>
-         <form novalidate="" className="space-y-6 ng-untouched ng-pristine ng-valid">
+         <form className="space-y-6 ng-untouched ng-pristine ng-valid">
             <div>
                <label name="name" className="text-lg">Full name</label>
                <input id="name" type="text" placeholder="" className="w-full p-3 rounded border dark:bg-gray-800" />
