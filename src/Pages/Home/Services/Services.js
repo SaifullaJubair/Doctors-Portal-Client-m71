@@ -32,7 +32,9 @@ const Services = () => {
             <h2 className='my-4 font-bold text-2xl text-primary uppercase'>Our Services</h2>
             <h1 className='font-bold text-3xl '>Services We Provide</h1>
          </div>
-         <div className='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+         <div className='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            data-aos="fade-up"
+            data-aos-duration='1500' >
             {
                servicesData.map(service => <Service
                   key={service.id}

@@ -12,6 +12,7 @@ const Navbar = () => {
          </li>
          <li><Link to='/contactUs'>Contact Us</Link>
          </li>
+         <li><Link to='/appointment' className=''>Appointment</Link></li>
       </React.Fragment>
    return (
       <div>
@@ -23,8 +24,6 @@ const Navbar = () => {
                   </label>
                   <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
 
-
-                     {/* <li><Link to='/review'>Review</Link></li> */}
                      {menuItems}
 
                      {
@@ -54,12 +53,14 @@ const Navbar = () => {
             <div className="mr-6 navbar-end">
                <div className=" hidden  lg:flex lg:text-lg font-semibold">
                   <ul className="menu menu-horizontal">
+
                      <li className='mx-1'><Link to='about'>About</Link></li>
                      <li className='mx-1'><Link to='contactUs'>Contact Us</Link></li>
+
+
                      {
                         user?.uid ?
                            <>
-                              <li><Link to='/appointment' className='lg:text-lg  text-xs font-semibold nav mx-2'>Appointment</Link></li>
                               <li><Link to='my_review' className='lg:text-lg  text-xs font-semibold nav'>Review</Link></li>
                               <button className='mx-2 lg:text-lg text-xs font-semibold nav'> Logout</button>
 
