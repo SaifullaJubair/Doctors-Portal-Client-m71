@@ -2,15 +2,24 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import useToken from '../../hooks/useToke';
 
 const Register = () => {
    const { register, handleSubmit, formState: { errors } } = useForm();
 
    const { createUser, updateUser } = useContext(AuthContext);
-
    const [signUpError, setSignUPError] = useState('')
+   const [createdUserEmail, setCreatedUserEmail] = useState('')
+   const [token] = useToken(createdUserEmail)
+   const navigate = useNavigate()
+   if (token) {
+      navigate('/')
+   }
+
+
+
    const handleSignUp = (data) => {
       console.log(data);
       setSignUPError('');
@@ -18,12 +27,16 @@ const Register = () => {
          .then(result => {
             const user = result.user;
             console.log(user);
-            toast('User Created Successfully.')
+            toast.success('User Created Successfully.')
+
             const userInfo = {
                displayName: data.name
             }
             updateUser(userInfo)
-               .then(() => { })
+               .then(() => {
+                  saveUser(data.name, data.email)
+               })
+
                .catch(err => console.log(err));
          })
          .catch(error => {
@@ -31,9 +44,26 @@ const Register = () => {
             setSignUPError(error.message)
          });
    }
+   //save user data in db
+   const saveUser = (name, email) => {
+      const user = { name, email };
+      fetch('http://localhost:5000/users', {
+         method: 'POST',
+         headers: {
+            'content-type': 'application/json'
+         },
+         body: JSON.stringify(user)
+      })
+         .then(res => res.json())
+         .then(data => {
+            setCreatedUserEmail(email)
+         })
+   }
+
+
    return (
       <div className='h-[800px] flex justify-center items-center'>
-         <div className='w-96 p-7'>
+         <div className='w-full lg:w-96 p-7'>
             <h2 className='text-xl text-center'>Sign Up</h2>
             <form onSubmit={handleSubmit(handleSignUp)}>
                <div className="form-control w-full max-w-xs">

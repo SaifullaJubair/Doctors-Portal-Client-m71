@@ -86,7 +86,7 @@ const Care = () => {
                </div>
             </div>
             <div
-               className="flex items-center justify-center -mx-4 lg:pl-8" data-aos='fade-left'
+               className="hidden  md:flex lg:flex items-center justify-center -mx-4 lg:pl-8" data-aos='fade-left'
                data-aos-duration='1800'
                data-aos-anchor-placement="top-center">
 

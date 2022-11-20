@@ -4,7 +4,7 @@ const AppointmentOption = ({ appointmentOption, setTreatment }) => {
    const { name, slots } = appointmentOption
    return (
       <div>
-         <div className="card w-96 bg-base-100 shadow-xl my-4 mx-auto">
+         <div className="card w-full lg:w-96 bg-base-100 shadow-xl my-4 mx-auto">
             <div className="card-body text-center">
                <h2 className="text-3xl font-bold text-secondary">{name}</h2>
                <p>

@@ -1,12 +1,15 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../../Context/AuthProvider';
 
-const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
-   const { name, slots } = treatment
+const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
+   const { name: treatmentName, slots } = treatment
+   const date = format(selectedDate, 'PP')
+   const { user } = useContext(AuthContext);
    const handleBooking = event => {
       event.preventDefault()
       const form = event.target;
-      const date = form.date.value;
       const slot = form.slot.value;
       const patient = form.patient.value;
       const email = form.email.value;
@@ -14,12 +17,33 @@ const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
 
       const booking = {
          appointmentDate: date,
-         treatment: name,
+         treatment: treatmentName,
          patient,
          slot,
          email,
          phone,
       }
+
+      fetch('http://localhost:5000/bookings', {
+         method: 'POST',
+         headers: {
+            'content-type': 'application/json'
+         },
+         body: JSON.stringify(booking)
+      })
+         .then(res => res.json())
+         .then(data => {
+            console.log(data);
+            if (data.acknowledged) {
+               toast.success('Booking Confirmed')
+               refetch()
+            }
+            else {
+               toast.error(data.message)
+            }
+         })
+
+
       //todo : send data to the server
       //and once data is saved then close the modal
       //and display success toast
@@ -32,7 +56,7 @@ const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
          <div className="modal">
             <div className="modal-box relative">
                <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-               <h3 className="text-lg font-bold">{name}</h3>
+               <h3 className="text-lg font-bold">{treatmentName}</h3>
 
                <form onSubmit={handleBooking}>
                   <input type="text" readOnly value={format(selectedDate, "PP")} className="input bg-base-200 input-border my-2 input-primary w-full " name='date' />
@@ -44,9 +68,9 @@ const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
                         >{slot}</option>)
                      }
                   </select>
-                  <input type="text" placeholder="Your required Name" className="input input-bordered my-2 input-primary w-full " required name='patient' />
+                  <input type="text" placeholder="Your required Name" className="input input-bordered my-2 input-primary w-full " disabled name='patient' defaultValue={user?.displayName} />
 
-                  <input type="email" placeholder="Your Email" className="input input-bordered my-2 input-primary w-full " required name='email' />
+                  <input type="email" placeholder="Your Email" className="input input-bordered my-2 input-primary w-full " defaultValue={user?.email} required name='email' readOnly />
 
 
                   <input type="number" placeholder="Your mobile number" className="input input-bordered my-2 input-primary w-full " required name='phone' />
